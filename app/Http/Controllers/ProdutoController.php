@@ -61,4 +61,7 @@ class ProdutoController extends Controller
         $produtos = Produto::listarProdutos();
         return view('produto.listar',  ['produtos' => $produtos]);
     }
+    public function atualizar(){
+        
+    }
 }
