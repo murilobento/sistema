@@ -18,7 +18,7 @@
             <div class="col-sm-12">
                 <div class="panel panel-default panel-border-color panel-border-color-primary">
                     @if(Request::is('*/editar'))
-                    {!! Form::model($produto, ['method' => 'PATCH', 'url' => 'produto/'.$produto->id]) !!}
+                    {!! Form::model($produto, ['method' => 'PATCH', 'url' => 'produto/'.$produto->id, 'files' => true]) !!}
                     <div class="panel-heading panel-heading-divider">Edição de Produto<span class="panel-subtitle">Os campos com <i class="txt-red">*</i> são obrigatórios</span></div>
                     <div class="panel-body">
                          @if (count($errors) > 0)
@@ -91,14 +91,14 @@
                         </div>
                         <div class="form-group col-sm-12">
                             <label>Foto <i class="txt-red">*</i></label>
-
+                            {!! Form::input('file', 'foto', null, ['class'=> 'form-control input-sm']) !!}
+                            <br>
                             <img name="foto" src="/fotos/produtos/{{ $produto->foto }}" alt="">
                         </div>
                         <div class="form-group col-sm-12">
-                            <p class="text-left">
-                                {!! Form::submit('Cadastrar', ['class' => 'btn btn-space btn-success']) !!}
-                                {!! Form::reset('Limpar', ['class' => 'btn btn-space btn-primary']) !!}
-                                <a class="btn btn-space btn-danger" href="{{ url('produto/listar') }}">Voltar</a>
+                            <p class="text-left">                                                              
+                                {!! Form::submit('Editar', ['class' => 'btn btn-space btn-primary']) !!}
+                                <a class="btn btn-space btn-danger" href="{{ url('produto/listar') }}">Voltar</a>                                    
                             </p>
                         </div>
                         {!! Form::close() !!}

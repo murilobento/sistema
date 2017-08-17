@@ -61,7 +61,31 @@ class ProdutoController extends Controller
         $produtos = Produto::listarProdutos();
         return view('produto.listar',  ['produtos' => $produtos]);
     }
-    public function atualizar(){
-        
+    public function atualizar($id, Request $request){
+        $produto = Produto::findOrFail($id);
+        $produto->nome = Input::get('nome');
+        $produto->descricao = Input::get('descricao');
+        $produto->marca_id = Input::get('marca');        
+        $produto->cat_id = Input::get('categoria');
+        $produto->scat_id = Input::get('subcategoria');
+        $produto->valorpago = Input::get('valorpago');
+        $produto->margem = Input::get('margem');
+        $produto->valorvenda = Input::get('valorvenda');
+        $produto->estoque = Input::get('estoque');
+        if($request->foto){ //se existir uma foto, deleta ela antes de carregar a nova
+          $pathToImage = public_path('fotos/produtos/').$produto->foto;
+          File::delete($pathToImage); 
+        }
+        if(Input::file('foto')){  //carrega a nova foto
+          $image = Input::file('foto');
+          $filename  = time() . '.' . $image->getClientOriginalExtension();
+          $path = public_path('fotos/produtos/' . $filename);
+          Image::make($image->getRealPath())->widen(300)->save($path);
+          $produto->foto = $filename;
+        }
+        $produto->save($request->all());
+        Session::flash('mensagem_sucesso', 'Registro editado com sucesso!');
+        return Redirect::to('produto/listar');      
+
     }
 }
