@@ -9,6 +9,8 @@ var App = (function () {
 	$("[data-mask='cep']").mask("99999-999");
 	$("[data-mask='cel']").mask("(99) 99999-9999");
 	$("[data-mask='tel']").mask("(99) 9999-9999");
+	$("[data-mask='ie']").mask("999.999.999.999");
+	$("[data-mask='cnpj']").mask("99.999.999/9999-99");
 	
     
   };
